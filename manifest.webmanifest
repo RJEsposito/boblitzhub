@@ -1,0 +1,9 @@
+{
+  "name": "Boblitz.exe",
+  "short_name": "Boblitz",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#100b20",
+  "theme_color": "#100b20",
+  "icons": []
+}

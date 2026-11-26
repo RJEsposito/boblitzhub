@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#100b20"><meta name="description" content="Boblitz.exe, your personal anime archive">
+  <link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="styles.css">
+  <title>Boblitz.exe // Anime Archive</title>
+</head>
+<body>
+  <div class="scanlines"></div>
+  <header class="topbar">
+    <a class="brand" href="#"><span class="brand-mark">B.</span><span>BOBLITZ<span class="pink">.EXE</span><small>PERSONAL ANIME ARCHIVE</small></span></a>
+    <div class="top-right"><span id="connection" class="status">● SYSTEM READY</span><button id="logoutBtn" class="ghost hidden">LOG OUT</button></div>
+  </header>
+  <main>
+    <section id="authView" class="auth-wrap">
+      <div class="hero-panel">
+        <div class="eyebrow">WELCOME BACK, INTERNET GHOST <span>/// 2003-∞</span></div>
+        <h1>YOUR OWN<br><span class="glitch" data-text="ANIME UNIVERSE">ANIME UNIVERSE</span></h1>
+        <p class="muted">A private little corner of the internet. Catalog your series, collect characters, leave notes in the margins.</p>
+        <div class="terminal">BOBLITZ_OS v1.0<br><span class="green">></span> archive.init()<br><span class="green">></span> awaiting_user_credentials<span class="blink">_</span></div>
+        <div class="decor">電波 // DENPA // 電波</div>
+      </div>
+      <div class="auth-card">
+        <div class="window-head"><span>◉ USER AUTHENTICATION</span><span>— □ ×</span></div>
+        <div class="tabs"><button class="tab active" data-auth="login">LOGIN</button><button class="tab" data-auth="signup">CREATE ACCOUNT</button></div>
+        <form id="authForm">
+          <label>EMAIL ADDRESS<input id="email" type="email" autocomplete="email" required placeholder="you@example.com"></label>
+          <label>PASSWORD<input id="password" type="password" minlength="6" autocomplete="current-password" required placeholder="••••••••"></label>
+          <button class="primary full" type="submit" id="authSubmit">ENTER ARCHIVE ↗</button>
+        </form>
+        <p id="authMessage" class="small muted">Your archive is private to your account.</p>
+      </div>
+    </section>
+
+    <section id="appView" class="hidden">
+      <div class="welcome-row"><div><div class="eyebrow">PERSONAL ARCHIVE / ONLINE</div><h1>Good day, <span class="pink">collector.</span></h1><p class="muted">Your corner of the net is looking wonderfully strange.</p></div><div class="date-chip" id="todayLabel"></div></div>
+      <nav class="nav" id="nav">
+        <button class="nav-btn active" data-page="dashboard">⌂ HOME</button><button class="nav-btn" data-page="library">▤ LIBRARY</button><button class="nav-btn" data-page="watch">▶ WATCH</button><button class="nav-btn" data-page="collections">▧ COLLECTIONS</button><button class="nav-btn" data-page="characters">♡ CHARACTERS</button><button class="nav-btn" data-page="calendar">▦ CALENDAR</button><button class="nav-btn" data-page="files">▣ LOCAL FILES</button>
+      </nav>
+      <section id="dashboard" class="page">
+        <div class="stats-grid">
+          <article class="stat"><span>IN YOUR ARCHIVE</span><strong id="statTotal">0</strong><small>anime entries</small></article>
+          <article class="stat"><span>IN PROGRESS</span><strong id="statWatching">0</strong><small>currently watching</small></article>
+          <article class="stat"><span>COMPLETED</span><strong id="statCompleted">0</strong><small>series finished</small></article>
+          <article class="stat accent"><span>FAVOURITE CHARACTERS</span><strong id="statChars">0</strong><small>on your wall</small></article>
+        </div>
+        <div class="dash-grid">
+          <article class="panel"><div class="panel-head"><h2>✦ RECENTLY IN THE ARCHIVE</h2><button class="text-btn" data-goto="library">OPEN LIBRARY ↗</button></div><div id="recentList" class="mini-list empty">Nothing here yet. Add your first anime.</div></article>
+          <article class="panel random-panel"><div class="eyebrow">SIGN FROM THE UNIVERSE</div><h2>What should<br>you watch?</h2><p class="muted small">Let the archive choose from your planned list.</p><button id="randomBtn" class="primary">GENERATE RANDOM PICK ⟳</button><div id="randomResult" class="random-result">???</div></article>
+        </div>
+        <article class="panel"><div class="panel-head"><h2>⌁ QUICK NOTE</h2><span class="small muted">A thought for later</span></div><textarea id="quickNote" placeholder="Leave a little message to your future self..."></textarea><button id="saveNote" class="secondary">SAVE NOTE</button><span id="noteSaved" class="small muted"></span></article>
+      </section>
+
+      <section id="library" class="page hidden">
+        <div class="section-head"><div><div class="eyebrow">THE COLLECTION GROWS</div><h2>Anime library</h2></div><button id="addManualBtn" class="secondary">＋ MANUAL ENTRY</button></div>
+        <div class="search-row"><input id="animeSearch" placeholder="Search anime titles on AniList..."><button id="searchBtn" class="primary">SEARCH</button></div>
+        <div id="searchResults" class="poster-grid"></div>
+        <div class="panel-head library-heading"><h3>YOUR ENTRIES</h3><select id="statusFilter"><option value="all">ALL STATUSES</option><option>Planning</option><option>Watching</option><option>Completed</option><option>Paused</option><option>Dropped</option></select></div>
+        <div id="libraryGrid" class="poster-grid"></div>
+      </section>
+
+      <section id="watch" class="page hidden">
+        <div class="section-head"><div><div class="eyebrow">AUTHORIZED STREAMS ONLY</div><h2>Media player</h2></div></div>
+        <div class="notice">Add an embed link from a video service that allows embedding and that you are authorized to use. This player supports YouTube, Vimeo and Internet Archive embed links. It does not host video files.</div>
+        <div id="watchEmpty" class="empty">Choose an anime from your library and save an authorized embed URL in its entry to watch it here.</div>
+        <div id="watchStage" class="watch-stage hidden">
+          <div class="watch-stage-head"><div><div class="eyebrow">NOW PLAYING</div><h3 id="watchTitle">ANIME TITLE</h3></div><button id="closeWatch" class="secondary">CLOSE PLAYER</button></div>
+          <div class="video-frame"><iframe id="animePlayer" title="Anime video player" src="about:blank" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+          <p class="small muted">Playback is provided by the external video host. Use the anime entry's progress field to update your watched episodes.</p>
+        </div>
+        <h3 class="library-heading">AVAILABLE IN YOUR LIBRARY</h3>
+        <div id="watchLibrary" class="poster-grid"></div>
+      </section>
+
+      <section id="collections" class="page hidden">
+        <div class="section-head"><div><div class="eyebrow">SORT YOUR LITTLE WORLDS</div><h2>Custom collections</h2></div></div>
+        <form id="collectionForm" class="inline-form"><input id="collectionName" required placeholder="Collection name (e.g. late-night sci-fi)"><button class="primary">CREATE COLLECTION</button></form>
+        <div id="collectionList" class="collection-grid"></div>
+      </section>
+
+      <section id="characters" class="page hidden">
+        <div class="section-head"><div><div class="eyebrow">THE PEOPLE WHO LIVE IN YOUR HEAD</div><h2>Favourite characters</h2></div></div>
+        <form id="characterForm" class="inline-form"><input id="characterName" required placeholder="Character name"><input id="characterAnime" placeholder="Anime / source"><input id="characterImage" type="url" placeholder="Image URL (optional)"><button class="primary">ADD CHARACTER</button></form>
+        <div id="characterGrid" class="character-grid"></div>
+      </section>
+
+      <section id="calendar" class="page hidden">
+        <div class="section-head"><div><div class="eyebrow">DATES FROM YOUR UNIVERSE</div><h2>Anime calendar</h2></div></div>
+        <form id="eventForm" class="inline-form"><input id="eventTitle" required placeholder="Episode / release / reminder"><input id="eventDate" type="date" required><button class="primary">ADD EVENT</button></form>
+        <div id="eventList" class="event-list"></div>
+      </section>
+
+      <section id="files" class="page hidden">
+        <div class="section-head"><div><div class="eyebrow">YOUR OWN MEDIA SHELF</div><h2>Local video files</h2></div></div>
+        <div class="notice">This is a catalogue for video files you legally own. Browsers cannot safely keep a permanent path to files on your computer or make a local file available on another device. Store a filename and folder note here, then open the file on the device where it lives.</div>
+        <form id="fileForm" class="inline-form"><input id="fileTitle" required placeholder="Anime / episode title"><input id="fileName" required placeholder="Filename (e.g. series-01.mkv)"><input id="fileLocation" placeholder="Folder note (e.g. Videos/Anime)"><button class="primary">ADD TO SHELF</button></form>
+        <div id="fileList" class="file-list"></div>
+      </section>
+    </section>
+  </main>
+  <footer>BOBLITZ.EXE <span>///</span> MADE FOR ONE HUMAN, SOMEWHERE ON THE INTERNET.</footer>
+
+  <dialog id="animeDialog">
+    <form method="dialog" class="dialog-head"><strong id="dialogTitle">EDIT ANIME</strong><button class="icon-btn">×</button></form>
+    <form id="animeEditForm" class="dialog-body">
+      <input type="hidden" id="editId">
+      <label>TITLE<input id="editTitle" required></label>
+      <label>STATUS<select id="editStatus"><option>Planning</option><option>Watching</option><option>Completed</option><option>Paused</option><option>Dropped</option></select></label>
+      <div class="two"><label>EPISODES WATCHED<input id="editProgress" type="number" min="0" value="0"></label><label>TOTAL EPISODES<input id="editTotal" type="number" min="0"></label></div>
+      <label>YOUR RATING (0–10)<input id="editRating" type="number" min="0" max="10" step=".5"></label>
+      <label>PERSONAL REVIEW<textarea id="editReview" rows="4" placeholder="What did you think?"></textarea></label>
+      <label>POSTER URL<input id="editCover" type="url" placeholder="https://..."></label>\n      <label>AUTHORIZED VIDEO EMBED URL<input id="editEmbed" type="url" placeholder="YouTube / Vimeo / Internet Archive embed URL"><small class="muted">Only supported, permitted embed links are accepted.</small></label>
+      <div class="dialog-actions"><button type="button" id="deleteAnime" class="danger hidden">DELETE</button><button class="primary" type="submit">SAVE ENTRY</button></div>
+    </form>
+  </dialog>
+  <div id="toast" class="toast"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script src="app.js"></script>
+</body></html>
